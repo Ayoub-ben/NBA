@@ -43,7 +43,7 @@ class App extends Component {
       })
     }
   
-   /* getPlayerStats = (playerId) =>{
+    getPlayerStats = (playerId) =>{
       axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${playerId}`)
       .then(async res=> {
         console.log(res.data.data)
@@ -51,7 +51,7 @@ class App extends Component {
       }).catch(err => {
         console.log(err)
       })
-    */
+    }
 
 
     getPlayerGame = () => {

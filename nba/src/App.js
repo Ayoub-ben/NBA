@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import dateFormat from "dateformat"
 
 class App extends Component {
   constructor(props){
@@ -9,7 +10,7 @@ class App extends Component {
       teamId: null,
       playerStats: {},
       infoJoueur: {},
-      tabDate: null,
+      lastMatch: null,
       gameStats: null
     }
   }
@@ -78,17 +79,18 @@ class App extends Component {
             if(datetampon<res.data.data[i]?.date){
                 datetampon=res.data.data[i]?.date;
             }
+            this.setState({  lastMatch : res.data.data[i]})
         }
-        this.setState({  tabDate : datetampon})
+
 
         //test
         console.log(res.data.data)
 
         //COMPARE 2 premières dates Test
          let date1 = new Date(res.data.data[0]?.date);
-         console.log("date 1 " + res.data.data[0]?.date)
+         console.log("date 1 " + dateFormat(res.data.data[0]?.date, "dd/mm/yyyy"))
          let date2 = new Date(res.data.data[1]?.date);
-         console.log("date 2 " + res.data.data[1]?.date)
+         console.log("date 2 " + dateFormat(res.data.data[1]?.date, "dd/mm/yyyy"))
            if(date1 > date2){
              console.log('date1 est supérieur à date2');
            }
@@ -141,7 +143,11 @@ class App extends Component {
      <br/>
      Team id : {this.state.infoJoueur["team"]?.id}
      <br/>
-     Date dernier match : {this.state.tabDate}
+     <br/>
+     Dernier Match :
+     {this.state.lastMatch?.home_team?.full_name} {this.state.lastMatch?.home_team_score} Vs {this.state.lastMatch?.visitor_team_score} {this.state.lastMatch?.visitor_team?.full_name}
+     <br/>
+     Date dernier match : {dateFormat(this.state.lastMatch?.date, "dd/mm/yyyy")}
      <br/>
      <br/>
      games played: {this.state.playerStats["games_played"]}

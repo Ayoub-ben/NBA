@@ -9,6 +9,7 @@ class App extends Component {
       teamId: null,
       playerStats: {},
       infoJoueur: {},
+      tabDate: null,
       gameStats: null
     }
   }
@@ -67,7 +68,35 @@ class App extends Component {
     getGame = () => {
       axios.get(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${this.state.teamId}&per_page=50`)
       .then(async res=> {
+
+
+        //recup dernière date
+        let datetampon=res.data.data[0]?.date;
+        for(let i=1; i < res.data.data?.length; i++){
+        //console.log("Toutes les dates :" + res.data.data[i]?.date)
+
+            if(datetampon<res.data.data[i]?.date){
+                datetampon=res.data.data[i]?.date;
+            }
+        }
+        this.setState({  tabDate : datetampon})
+
+        //test
         console.log(res.data.data)
+
+        //COMPARE 2 dates
+         let date1 = new Date(res.data.data[0]?.date);
+         console.log("date 1 " + res.data.data[0]?.date)
+         let date2 = new Date(res.data.data[1]?.date);
+         console.log("date 2 " + res.data.data[1]?.date)
+           if(date1 > date2){
+             console.log('date1 est supérieur à date2');
+           }
+           else{
+           console.log('date1 est inferieur à date2');
+           }
+
+
         this.setState({ gameStats: res.data.data})
       }).catch(err => {
         console.log(err)
@@ -109,6 +138,8 @@ class App extends Component {
      Information joueur : {this.state.infoJoueur?.last_name} {this.state.infoJoueur?.first_name} {this.state.infoJoueur?.position}
      <br />
      Team id : {this.state.infoJoueur["team"]?.id}
+     <br />
+     Date dernier match : {this.state.tabDate}
      <br />
      <br />
      games played: {this.state.playerStats["games_played"]}

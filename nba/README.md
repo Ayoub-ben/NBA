@@ -1,3 +1,14 @@
+# Lien git du projet :
+git clone https://github.com/Ayoub-ben/NBA.git
+
+# Installation :
+cd nba
+npm install
+npm install axios
+
+# lancer le serveur:
+npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

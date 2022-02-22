@@ -5,6 +5,8 @@ git clone https://github.com/Ayoub-ben/NBA.git
 cd nba
 npm install
 npm install axios
+npm install dateformat
+
 
 # lancer le serveur:
 npm start

@@ -14,7 +14,10 @@ class App extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.getPlayerId();
+    this.getGame();
     console.log(this.state.playerName);
+    console.log(this.state.gameStats);
+
   }
 
   handleChange = (event) => {
@@ -54,11 +57,11 @@ class App extends Component {
     }
 
 
-    getPlayerGame = () => {
-      axios.get(`https://www.balldontlie.io/api/v1/games?seasons[]=2018&team_ids[]=1`)
+    getGame = () => {
+      axios.get(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=2`)
       .then(async res=> {
         console.log(res.data.data)
-        this.setState({ gameStats: res.data.data[0]})
+        this.setState({ gameStats: res.data.data})
       }).catch(err => {
         console.log(err)
       })

@@ -84,7 +84,7 @@ class App extends Component {
         //test
         console.log(res.data.data)
 
-        //COMPARE 2 dates
+        //COMPARE 2 premières dates Test
          let date1 = new Date(res.data.data[0]?.date);
          console.log("date 1 " + res.data.data[0]?.date)
          let date2 = new Date(res.data.data[1]?.date);
@@ -134,20 +134,22 @@ class App extends Component {
        </label>
        <input type="submit" value="Submit"/>
      </form>
-     <br />
-     Information joueur : {this.state.infoJoueur?.last_name} {this.state.infoJoueur?.first_name} {this.state.infoJoueur?.position}
-     <br />
+     <br/>
+     Information joueur : {this.state.infoJoueur?.last_name} {this.state.infoJoueur?.first_name}
+     <br/>
+     Poste : {this.state.infoJoueur?.position}
+     <br/>
      Team id : {this.state.infoJoueur["team"]?.id}
-     <br />
+     <br/>
      Date dernier match : {this.state.tabDate}
-     <br />
-     <br />
+     <br/>
+     <br/>
      games played: {this.state.playerStats["games_played"]}
-     <br />
+     <br/>
      points averaged: {this.state.playerStats["pts"]}
-     <br />
+     <br/>
      rebounds averaged: {this.state.playerStats["reb"]}
-     <br />
+     <br/>
      assists averaged: {this.state.playerStats["ast"]}
     </div>
   );

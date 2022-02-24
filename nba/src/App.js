@@ -71,8 +71,6 @@ class App extends Component {
       .then(async res=> {
 
         let tabMatch = []
-        let matchtampon=res.data.data[0];
-        let datetampon=res.data.data[0]?.date;
 
         //Créer un tableau de match de la saison en enlevant les match non joué
         for(let i=1; i < res.data.data?.length; i++){
@@ -80,15 +78,6 @@ class App extends Component {
                 tabMatch.push(res.data.data[i])
             }
         //console.log("Toutes les Matchs :" + res.data.data[i])
-        }
-
-        //Recupère le dernier match en comparant les dates des différents matchs
-        for(let i=1; i < tabMatch?.length; i++){
-            if(datetampon<tabMatch[i]?.date){
-                datetampon=tabMatch[i]?.date;
-                matchtampon=tabMatch[i];
-            }
-            this.setState({  lastMatch : matchtampon})
         }
 
           //TRIE LE TABLEAU
@@ -105,20 +94,8 @@ class App extends Component {
               console.log(tabMatch[i])
           }
 
-
-        //Partie pour tester pas importante
-        //COMPARE 2 premières dates Test
-         let date1 = new Date(res.data.data[0]?.date);
-         console.log("date 1 " + dateFormat(res.data.data[0]?.date, "dd/mm/yyyy"))
-         let date2 = new Date(res.data.data[1]?.date);
-         console.log("date 2 " + dateFormat(res.data.data[1]?.date, "dd/mm/yyyy"))
-           if(date1 > date2){
-             console.log('date1 est supérieur à date2');
-           }
-           else{
-           console.log('date1 est inferieur à date2');
-           }
-
+          //Recupère le dernier match
+        this.setState({  lastMatch : tabMatch[tabMatch.length-1]})
 
         this.setState({ gameStats: res.data.data})
       }).catch(err => {

@@ -67,29 +67,30 @@ class App extends Component {
 
 
     getGame = () => {
-      axios.get(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${this.state.teamId}&per_page=50`)
+      axios.get(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${this.state.teamId}&per_page=100`)
       .then(async res=> {
 
+        let tabMatch = []
 
         //recup dernière date
         let matchtampon=res.data.data[0];
         let datetampon=res.data.data[0]?.date;
         for(let i=1; i < res.data.data?.length; i++){
-        //console.log("Toutes les dates :" + res.data.data[i]?.date)
+            if(res.data.data[i]?.home_team_score !== 0){
+                tabMatch.push(res.data.data[i])
+            }
+        console.log("Toutes les dates :" + res.data.data[i])
+        }
 
-            if(datetampon<res.data.data[i]?.date){
-                datetampon=res.data.data[i]?.date;
-                matchtampon=res.data.data[i];
+        for(let i=1; i < tabMatch?.length; i++){
+            if(datetampon<tabMatch[i]?.date){
+                datetampon=tabMatch[i]?.date;
+                matchtampon=tabMatch[i];
             }
             this.setState({  lastMatch : matchtampon})
         }
 
         
-        /**let tabMatchTriee=res.data.data.sort()
-          for(let i=1; i < tabMatchTriee.length; i++){
-            console.log("Toutes les dates :" + tabMatchTriee[i]?.date)
-          }
-        */
         //test
         console.log(res.data.data)
 

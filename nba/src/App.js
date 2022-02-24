@@ -72,17 +72,24 @@ class App extends Component {
 
 
         //recup dernière date
+        let matchtampon=res.data.data[0];
         let datetampon=res.data.data[0]?.date;
         for(let i=1; i < res.data.data?.length; i++){
         //console.log("Toutes les dates :" + res.data.data[i]?.date)
 
             if(datetampon<res.data.data[i]?.date){
                 datetampon=res.data.data[i]?.date;
+                matchtampon=res.data.data[i];
             }
-            this.setState({  lastMatch : res.data.data[i]})
+            this.setState({  lastMatch : matchtampon})
         }
 
-
+        
+        /**let tabMatchTriee=res.data.data.sort()
+          for(let i=1; i < tabMatchTriee.length; i++){
+            console.log("Toutes les dates :" + tabMatchTriee[i]?.date)
+          }
+        */
         //test
         console.log(res.data.data)
 

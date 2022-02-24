@@ -10,6 +10,7 @@ class App extends Component {
       teamId: null,
       playerStats: {},
       infoJoueur: {},
+      tabMatch : [],
       lastMatch: null,
       gameStats: null
     }
@@ -70,18 +71,17 @@ class App extends Component {
       axios.get(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${this.state.teamId}&per_page=100`)
       .then(async res=> {
 
-        let tabMatch = []
 
         //Créer un tableau de match de la saison en enlevant les match non joué
         for(let i=1; i < res.data.data?.length; i++){
             if(res.data.data[i]?.home_team_score !== 0){
-                tabMatch.push(res.data.data[i])
+                this.state.tabMatch.push(res.data.data[i])
             }
         //console.log("Toutes les Matchs :" + res.data.data[i])
         }
 
           //TRIE LE TABLEAU
-          tabMatch.sort(function (a, b) {
+          this.state.tabMatch.sort(function (a, b) {
               if (a?.date<b?.date)
                 return -1;
               if (a?.date>b?.date)
@@ -90,12 +90,12 @@ class App extends Component {
           });
 
         //Affiche le tableau triee
-          for(let i=1; i < tabMatch?.length; i++){
-              console.log(tabMatch[i])
+          for(let i=1; i < this.state.tabMatch?.length; i++){
+              console.log(this.state.tabMatch[i])
           }
 
           //Recupère le dernier match
-        this.setState({  lastMatch : tabMatch[tabMatch.length-1]})
+        this.setState({  lastMatch : this.state.tabMatch[this.state.tabMatch.length-1]})
 
         this.setState({ gameStats: res.data.data})
       }).catch(err => {
@@ -142,12 +142,38 @@ class App extends Component {
      Team id : {this.state.infoJoueur["team"]?.id}
      <br/>
      <br/>
-     Dernier Match :
-     {this.state.lastMatch?.home_team?.full_name} {this.state.lastMatch?.home_team_score} Vs {this.state.lastMatch?.visitor_team_score} {this.state.lastMatch?.visitor_team?.full_name}
+
+     Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-1]?.date, "dd/mm/yyyy")}
      <br/>
-     Date dernier match : {dateFormat(this.state.lastMatch?.date, "dd/mm/yyyy")}
+     {this.state.tabMatch[this.state.tabMatch.length-1]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-1]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-1]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-1]?.visitor_team?.full_name}
      <br/>
      <br/>
+
+     Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-2]?.date, "dd/mm/yyyy")}
+     <br/>
+     {this.state.tabMatch[this.state.tabMatch.length-2]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-2]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-2]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-2]?.visitor_team?.full_name}
+      <br/>
+      <br/>
+
+      Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-3]?.date, "dd/mm/yyyy")}
+      <br/>
+      {this.state.tabMatch[this.state.tabMatch.length-3]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-3]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-3]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-3]?.visitor_team?.full_name}
+      <br/>
+      <br/>
+
+
+      Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-4]?.date, "dd/mm/yyyy")}
+      <br/>
+      {this.state.tabMatch[this.state.tabMatch.length-4]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-4]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-4]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-4]?.visitor_team?.full_name}
+      <br/>
+      <br/>
+
+      Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-5]?.date, "dd/mm/yyyy")}
+      <br/>
+      {this.state.tabMatch[this.state.tabMatch.length-5]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-5]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-5]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-5]?.visitor_team?.full_name}
+      <br/>
+      <br/>
+
      games played: {this.state.playerStats["games_played"]}
      <br/>
      points averaged: {this.state.playerStats["pts"]}

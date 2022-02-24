@@ -71,17 +71,18 @@ class App extends Component {
       .then(async res=> {
 
         let tabMatch = []
-
-        //recup dernière date
         let matchtampon=res.data.data[0];
         let datetampon=res.data.data[0]?.date;
+
+        //Créer un tableau de match de la saison en enlevant les match non joué
         for(let i=1; i < res.data.data?.length; i++){
             if(res.data.data[i]?.home_team_score !== 0){
                 tabMatch.push(res.data.data[i])
             }
-        console.log("Toutes les dates :" + res.data.data[i])
+        //console.log("Toutes les Matchs :" + res.data.data[i])
         }
 
+        //Recupère le dernier match en comparant les dates des différents matchs
         for(let i=1; i < tabMatch?.length; i++){
             if(datetampon<tabMatch[i]?.date){
                 datetampon=tabMatch[i]?.date;
@@ -90,10 +91,22 @@ class App extends Component {
             this.setState({  lastMatch : matchtampon})
         }
 
-        
-        //test
-        console.log(res.data.data)
+          //TRIE LE TABLEAU
+          tabMatch.sort(function (a, b) {
+              if (a?.date<b?.date)
+                return -1;
+              if (a?.date>b?.date)
+                return 1;
+              return 0;
+          });
 
+        //Affiche le tableau triee
+          for(let i=1; i < tabMatch?.length; i++){
+              console.log(tabMatch[i])
+          }
+
+
+        //Partie pour tester pas importante
         //COMPARE 2 premières dates Test
          let date1 = new Date(res.data.data[0]?.date);
          console.log("date 1 " + dateFormat(res.data.data[0]?.date, "dd/mm/yyyy"))

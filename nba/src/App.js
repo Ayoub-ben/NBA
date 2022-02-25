@@ -6,6 +6,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      isLoggedIn: true,
       playerName: null,
       teamId: null,
       playerStats: {},
@@ -17,6 +18,8 @@ class App extends Component {
   }
 
   handleSubmit = (e) => {
+    this.state.tabMatch = []
+    this.state.isLoggedIn = false;
     e.preventDefault();
 
     this.getPlayerId();
@@ -120,6 +123,10 @@ class App extends Component {
 
   
  render(){
+
+
+
+
   return (
     <div className="App">
      <form onSubmit={this.handleSubmit}>
@@ -143,32 +150,33 @@ class App extends Component {
      <br/>
      <br/>
 
-     Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-1]?.date, "dd/mm/yyyy")}
+
+     Date match : { this.state.isLoggedIn ? true : dateFormat(this.state.tabMatch[this.state.tabMatch.length-1]?.date, "dddd, dd mmmm yyyy")}
      <br/>
      {this.state.tabMatch[this.state.tabMatch.length-1]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-1]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-1]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-1]?.visitor_team?.full_name}
      <br/>
      <br/>
 
-     Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-2]?.date, "dd/mm/yyyy")}
+     Date match : { this.state.isLoggedIn ? true : dateFormat(this.state.tabMatch[this.state.tabMatch.length-2]?.date, "dddd, dd mmmm yyyy")}
      <br/>
      {this.state.tabMatch[this.state.tabMatch.length-2]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-2]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-2]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-2]?.visitor_team?.full_name}
       <br/>
       <br/>
 
-      Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-3]?.date, "dd/mm/yyyy")}
+      Date match : { this.state.isLoggedIn ? true : dateFormat(this.state.tabMatch[this.state.tabMatch.length-3]?.date, "dddd, dd mmmm yyyy")}
       <br/>
       {this.state.tabMatch[this.state.tabMatch.length-3]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-3]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-3]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-3]?.visitor_team?.full_name}
       <br/>
       <br/>
 
 
-      Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-4]?.date, "dd/mm/yyyy")}
+      Date match : { this.state.isLoggedIn ? true : dateFormat(this.state.tabMatch[this.state.tabMatch.length-4]?.date, "dddd, dd mmmm yyyy")}
       <br/>
       {this.state.tabMatch[this.state.tabMatch.length-4]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-4]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-4]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-4]?.visitor_team?.full_name}
       <br/>
       <br/>
 
-      Date match : {dateFormat(this.state.tabMatch[this.state.tabMatch.length-5]?.date, "dd/mm/yyyy")}
+      Date match : { this.state.isLoggedIn ? true : dateFormat(this.state.tabMatch[this.state.tabMatch.length-5]?.date, "dddd, dd mmmm yyyy")}
       <br/>
       {this.state.tabMatch[this.state.tabMatch.length-5]?.home_team?.full_name} {this.state.tabMatch[this.state.tabMatch.length-5]?.home_team_score} Vs {this.state.tabMatch[this.state.tabMatch.length-5]?.visitor_team_score} {this.state.tabMatch[this.state.tabMatch.length-5]?.visitor_team?.full_name}
       <br/>
